@@ -1,5 +1,7 @@
 package BoardingPassGUI;
 
+import BoardingPass.BoardingPass;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -31,6 +33,10 @@ public class BoardingPassGUI {
     private JLabel dateLabel;
     private JTextField dateTextField;
 
+    private JPanel originPanel;
+    private JLabel originLabel;
+    private JTextField originTextField;
+
     private JPanel destinationPanel;
     private JLabel destinationLabel;
     private JTextField destinationTextField;
@@ -46,7 +52,7 @@ public class BoardingPassGUI {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Generate Boarding Pass");
-        frame.setLayout(new GridLayout(9, 1, 10, 5));
+        frame.setLayout(new GridLayout(10, 1, 10, 5));
         Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
         namePanel = new JPanel(new BorderLayout(10, 0));
@@ -85,6 +91,12 @@ public class BoardingPassGUI {
         datePanel.setBorder(padding);
         frame.add(datePanel);
 
+        originPanel = new JPanel(new BorderLayout(10, 0));
+        originPanel.add(originLabel = new JLabel("Origin: "), BorderLayout.WEST);
+        originPanel.add(originTextField = new JTextField(20), BorderLayout.EAST);
+        originPanel.setBorder(padding);
+        frame.add(originPanel);
+
         destinationPanel = new JPanel(new BorderLayout(10, 0));
         destinationPanel.add(destinationLabel = new JLabel("Destination: "), BorderLayout.WEST);
         destinationPanel.add(destinationTextField = new JTextField(20), BorderLayout.EAST);
@@ -99,10 +111,23 @@ public class BoardingPassGUI {
 
         submitButtonPanel = new JPanel(new BorderLayout(10, 0));
         submitButtonPanel.add(submitButton = new JButton("Submit"), BorderLayout.CENTER);
+        submitButton.addActionListener(a -> createBoardingPass());
         submitButtonPanel.setBorder(padding);
         frame.add(submitButtonPanel);
 
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void createBoardingPass() {
+        new BoardingPass(   nameTextField.getText(),
+                            emailTextField.getText(),
+                            phoneNumberTextField.getText(),
+                            genderTextField.getText(),
+                            ageTextField.getText(),
+                            dateTextField.getText(),
+                            originTextField.getText(),
+                            destinationTextField.getText(),
+                            departureTimeTextField.getText());
     }
 }
