@@ -1,5 +1,7 @@
 package BoardingPass;
 
+import java.util.Random;
+
 public class BoardingPass {
     private String name;
     private String email;
@@ -14,6 +16,8 @@ public class BoardingPass {
     private String estimatedTimeArrival;
     private String ticketPrice;
     private String boardingPassNumber;
+
+    private static final String ALPHANUMERIC = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Took out easily-confused characters 0-O, 1-I
 
     public BoardingPass(String name, String email, String phoneNumber, String gender, String age, String date, String origin, String destination, String departureTime) {
         this.name = name;
@@ -39,8 +43,13 @@ public class BoardingPass {
         return null;
     }
 
-    private String generateBoardingPassNumber() {   // TODO
-        return null;
+    private String generateBoardingPassNumber() {   // TODO maybe check if duplicate exists (very unlikely)
+        Random rand = new Random();
+        StringBuilder passNum = new StringBuilder(); // Mutable, and more memory efficient than using String
+        for (int i = 0; i <= 15; i++) {
+            passNum.append(ALPHANUMERIC.charAt(rand.nextInt(ALPHANUMERIC.length())));
+        }
+        return passNum.toString();
     }
 
     public String getName() {
