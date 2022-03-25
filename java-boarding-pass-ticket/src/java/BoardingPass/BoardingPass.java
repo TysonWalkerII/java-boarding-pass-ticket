@@ -38,11 +38,11 @@ public class BoardingPass {
         this.boardingPassNumber = generateBoardingPassNumber();
     }
 
-    private String generateTimeArrival() {          // TODO
+    private String generateTimeArrival() {              // TODO
         return null;
     }
 
-    private float generateTicketPrice() {             // TODO
+    private float generateTicketPrice() {               // TODO
         float price = BASE_TICKET_PRICE;
         if(age <= 12)
             price *= .5;
@@ -53,9 +53,9 @@ public class BoardingPass {
         return price;
     }
 
-    private String generateBoardingPassNumber() {   // TODO maybe check if duplicate exists (very unlikely)
+    private String generateBoardingPassNumber() {       // TODO maybe check if duplicate exists (very unlikely)
         Random rand = new Random();
-        StringBuilder passNum = new StringBuilder(); // Mutable, and more memory efficient than using String
+        StringBuilder passNum = new StringBuilder();    // Mutable, and more memory efficient than using String
         for (int i = 0; i < 16; i++) {
             passNum.append(ALPHANUMERIC.charAt(rand.nextInt(ALPHANUMERIC.length())));
         }

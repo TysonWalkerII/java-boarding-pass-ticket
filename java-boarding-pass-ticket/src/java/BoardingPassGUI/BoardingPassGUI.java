@@ -23,7 +23,9 @@ public class BoardingPassGUI {
 
     private JPanel genderPanel;
     private JLabel genderLabel;
-    private JTextField genderTextField;
+    private JRadioButton maleRadioButton;
+    private JRadioButton femaleRadioButton;
+    private JRadioButton otherGenderRadioButton;
 
     private JPanel agePanel;
     private JLabel ageLabel;
@@ -73,9 +75,14 @@ public class BoardingPassGUI {
         phoneNumberPanel.setBorder(padding);
         frame.add(phoneNumberPanel);
 
-        genderPanel = new JPanel(new BorderLayout(10, 0));
-        genderPanel.add(genderLabel = new JLabel("Gender: "), BorderLayout.WEST);
-        genderPanel.add(genderTextField = new JTextField(20), BorderLayout.EAST);
+        genderPanel = new JPanel(new GridLayout(1, 4,10, 0));
+        genderPanel.add(genderLabel = new JLabel("Gender: "));
+        genderPanel.add(maleRadioButton = new JRadioButton("Male"));
+        genderPanel.add(femaleRadioButton = new JRadioButton("Female"));
+        genderPanel.add(otherGenderRadioButton = new JRadioButton("Other"));
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(maleRadioButton); bg.add(femaleRadioButton); bg.add(otherGenderRadioButton);
+
         genderPanel.setBorder(padding);
         frame.add(genderPanel);
 
@@ -120,11 +127,18 @@ public class BoardingPassGUI {
     }
 
     private void createBoardingPass() {
+        BoardingPass.Gender gender;
+        if(maleRadioButton.isSelected())
+            gender = BoardingPass.Gender.MALE;
+        else if(femaleRadioButton.isSelected())
+            gender = BoardingPass.Gender.FEMALE;
+        else
+            gender = BoardingPass.Gender.OTHER;             // TODO check that fields are not empty
         new BoardingPass(   nameTextField.getText(),
                             emailTextField.getText(),
                             phoneNumberTextField.getText(),
-                            BoardingPass.Gender.OTHER,          // TODO fix inputs on gui and convert
-                            10,
+                            gender,
+                            10,                                 // TODO fix inputs on gui and convert
                             dateTextField.getText(),
                             originTextField.getText(),
                             destinationTextField.getText(),
