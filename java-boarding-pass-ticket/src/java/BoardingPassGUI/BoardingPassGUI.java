@@ -123,8 +123,8 @@ public class BoardingPassGUI {
         new BoardingPass(   nameTextField.getText(),
                             emailTextField.getText(),
                             phoneNumberTextField.getText(),
-                            genderTextField.getText(),
-                            ageTextField.getText(),
+                            BoardingPass.Gender.OTHER,          // TODO fix inputs on gui and convert
+                            10,
                             dateTextField.getText(),
                             originTextField.getText(),
                             destinationTextField.getText(),
