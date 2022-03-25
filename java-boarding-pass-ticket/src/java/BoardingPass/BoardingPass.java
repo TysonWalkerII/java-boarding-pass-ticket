@@ -22,7 +22,7 @@ public class BoardingPass {
     private static final String ALPHANUMERIC = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Took out easily-confused characters 0-O, 1-I
     private static final float BASE_TICKET_PRICE = 20;                    // Arbitrary number, not sure if need to change
 
-    public enum Gender {MALE, FEMALE, OTHER};
+    public enum Gender {MALE, FEMALE, OTHER}
 
     public BoardingPass(String name, String email, String phoneNumber, Gender gender, int age, String date, String origin, String destination, String departureTime) {
         this.name = name;
@@ -39,7 +39,7 @@ public class BoardingPass {
         this.ticketPrice = generateTicketPrice();
         this.boardingPassNumber = generateBoardingPassNumber();
 
-        BoardingPassIO.writeTicketToFile("testfile.txt");
+        BoardingPassIO.writeBoardingPassToFile(this, "testfile.txt");
     }
 
     private String generateTimeArrival() {              // TODO
