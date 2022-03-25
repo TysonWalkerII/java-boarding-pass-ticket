@@ -1,5 +1,7 @@
 package BoardingPass;
 
+import BoardingPassIO.BoardingPassIO;
+
 import java.util.Random;
 
 public class BoardingPass {
@@ -36,6 +38,8 @@ public class BoardingPass {
         this.estimatedTimeArrival = generateTimeArrival();
         this.ticketPrice = generateTicketPrice();
         this.boardingPassNumber = generateBoardingPassNumber();
+
+        BoardingPassIO.writeTicketToFile("testfile.txt");
     }
 
     private String generateTimeArrival() {              // TODO
