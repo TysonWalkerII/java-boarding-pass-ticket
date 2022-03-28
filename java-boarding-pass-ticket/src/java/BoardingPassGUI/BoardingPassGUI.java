@@ -1,11 +1,12 @@
 package BoardingPassGUI;
 
 import BoardingPass.BoardingPass;
-import com.github.lgooddatepicker.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.ParseException;
 
 public class BoardingPassGUI {
     private JFrame frame;
@@ -30,7 +31,7 @@ public class BoardingPassGUI {
 
     private JPanel agePanel;
     private JLabel ageLabel;
-    private JTextField ageTextField;
+    private JSpinner ageSpinner;
 
     private JPanel datePanel;
     private JLabel dateLabel;
@@ -89,7 +90,12 @@ public class BoardingPassGUI {
 
         agePanel = new JPanel(new BorderLayout(10, 0));
         agePanel.add(ageLabel = new JLabel("Age: "), BorderLayout.WEST);
-        agePanel.add(ageTextField = new JTextField(20), BorderLayout.EAST);
+        agePanel.add(ageSpinner = new JSpinner(new SpinnerNumberModel(1,1,999,1)), BorderLayout.EAST);
+        Component ageSpinnerEditor = ageSpinner.getEditor();
+        JFormattedTextField jftf = ((JSpinner.DefaultEditor) ageSpinnerEditor).getTextField();
+        jftf.setColumns(10);
+        ((NumberFormatter) jftf.getFormatter()).setAllowsInvalid(false);
+
         agePanel.setBorder(padding);
         frame.add(agePanel);
 
@@ -128,21 +134,28 @@ public class BoardingPassGUI {
     }
 
     private void createBoardingPass() {
+        try {
+            ageSpinner.commitEdit();
+        } catch (ParseException e) {
+            System.out.println("Issue parsing age field");
+            e.printStackTrace();
+            return;
+        }
         BoardingPass.Gender gender;
         if(maleRadioButton.isSelected())
-            gender = BoardingPass.Gender.MALE;
+            gender = BoardingPass.Gender.Male;
         else if(femaleRadioButton.isSelected())
-            gender = BoardingPass.Gender.FEMALE;
+            gender = BoardingPass.Gender.Female;
         else
-            gender = BoardingPass.Gender.OTHER;             // TODO check that fields are not empty
+            gender = BoardingPass.Gender.Other;             // TODO check that fields are not empty
         new BoardingPass(   nameTextField.getText(),
                             emailTextField.getText(),
                             phoneNumberTextField.getText(),
                             gender,
-                            10,                                 // TODO fix inputs on gui and convert
+                            (Integer)ageSpinner.getValue(),                                 // TODO fix inputs on gui and convert
                             dateTextField.getText(),
                             originTextField.getText(),
                             destinationTextField.getText(),
-                            departureTimeTextField.getText());
+                            departureTimeTextField.getText());     // TODO confirmation when done and button to close?
     }
 }
