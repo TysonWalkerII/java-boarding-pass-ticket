@@ -7,6 +7,12 @@ import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.ParseException;
+import java.util.Locale;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DateTimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
 
 public class BoardingPassGUI {
     private JFrame frame;
@@ -35,7 +41,7 @@ public class BoardingPassGUI {
 
     private JPanel datePanel;
     private JLabel dateLabel;
-    private JTextField dateTextField;
+    private DatePicker datePicker;
 
     private JPanel originPanel;
     private JLabel originLabel;
@@ -47,7 +53,7 @@ public class BoardingPassGUI {
 
     private JPanel departureTimePanel;
     private JLabel departureTimeLabel;
-    private JTextField departureTimeTextField;
+    private DateTimePicker departureTimePicker;
 
     private JPanel submitButtonPanel;
     private JButton submitButton;
@@ -101,7 +107,9 @@ public class BoardingPassGUI {
 
         datePanel = new JPanel(new BorderLayout(10, 0));
         datePanel.add(dateLabel = new JLabel("Date: "), BorderLayout.WEST);
-        datePanel.add(dateTextField = new JTextField(20), BorderLayout.EAST);
+        DatePickerSettings datePickerSettings = new DatePickerSettings(Locale.getDefault());
+        datePickerSettings.setAllowEmptyDates(false);
+        datePanel.add(datePicker = new DatePicker(datePickerSettings), BorderLayout.EAST);
         datePanel.setBorder(padding);
         frame.add(datePanel);
 
@@ -119,7 +127,12 @@ public class BoardingPassGUI {
 
         departureTimePanel = new JPanel(new BorderLayout(10, 0));
         departureTimePanel.add(departureTimeLabel = new JLabel("DepartureTime: "), BorderLayout.WEST);
-        departureTimePanel.add(departureTimeTextField = new JTextField(20), BorderLayout.EAST);
+        DatePickerSettings datePickerSettings2 = new DatePickerSettings(Locale.getDefault());
+        datePickerSettings2.setAllowEmptyDates(false);
+        TimePickerSettings timePickerSettings = new TimePickerSettings(Locale.getDefault());
+        timePickerSettings.setAllowEmptyTimes(false);
+        timePickerSettings.generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);
+        departureTimePanel.add(departureTimePicker = new DateTimePicker(datePickerSettings2, timePickerSettings), BorderLayout.EAST);
         departureTimePanel.setBorder(padding);
         frame.add(departureTimePanel);
 
@@ -153,9 +166,10 @@ public class BoardingPassGUI {
                             phoneNumberTextField.getText(),
                             gender,
                             (Integer)ageSpinner.getValue(),                                 // TODO fix inputs on gui and convert
-                            dateTextField.getText(),
+                            datePicker.getText(),
                             originTextField.getText(),
                             destinationTextField.getText(),
-                            departureTimeTextField.getText());     // TODO confirmation when done and button to close?
+                            departureTimePicker.getDateTimePermissive().toString()    // TODO confirmation when done and button to close?
+        );
     }
 }
