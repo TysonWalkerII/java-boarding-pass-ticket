@@ -1,5 +1,6 @@
 package BoardingPassIO;
 
+import java.io.File;
 import java.util.*;
 
 public class PassNumber {
@@ -18,7 +19,14 @@ public class PassNumber {
             int randIndex = rand.nextInt(ALPHANUMERIC.length());
             passNum.append(ALPHANUMERIC.charAt(randIndex));
         }
-        System.out.println("Pass: " + passNum);
+        System.out.println("Pass: " + passNum); // Just to check that it's returning a value;
         return passNum.toString();
+    }
+
+    public String isDuplicate(String passNum){
+        // Import file from location
+        // for loop iterate through the pass number values, looking for duplicates
+        // if duplicate found, re-run passNumber()
+        // otherwise, return passNum to be written to the appropriate entry
     }
 }
