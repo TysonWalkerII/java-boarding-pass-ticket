@@ -165,11 +165,28 @@ public class BoardingPassGUI {
                             emailTextField.getText(),
                             phoneNumberTextField.getText(),
                             gender,
-                            (Integer)ageSpinner.getValue(),                                 // TODO fix inputs on gui and convert
+                            (Integer)ageSpinner.getValue(),
                             datePicker.getText(),
                             originTextField.getText(),
                             destinationTextField.getText(),
-                            departureTimePicker.getDateTimePermissive().toString()    // TODO confirmation when done and button to close?
+                            departureTimePicker.getDateTimePermissive().toString()
         );
+
+        frame.getContentPane().removeAll();
+        frame.setLayout(new GridLayout(1, 1));
+
+        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        JPanel successPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        JLabel successLabel = new JLabel("Successfully created boarding pass.");
+        successPanel.add(successLabel);
+        JButton closeButton = new JButton("Close");
+        successPanel.add(closeButton);
+        closeButton.addActionListener(a -> frame.dispose());
+        successPanel.setBorder(padding);
+
+        frame.add(successPanel);
+        frame.revalidate();
+        frame.repaint();
+        frame.pack();
     }
 }

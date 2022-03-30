@@ -13,7 +13,7 @@ public class BoardingPass {
     private int age;
     private String date;
     private String origin;
-    private String destination;                 //TODO maybe change types of certain variables later
+    private String destination;
     private String departureTime;
     private String estimatedTimeArrival;
     private float ticketPrice;
@@ -39,14 +39,15 @@ public class BoardingPass {
         this.ticketPrice = generateTicketPrice();
         this.boardingPassNumber = generateBoardingPassNumber();
 
-        BoardingPassIO.writeBoardingPassToFile(this, "test.txt");
+        BoardingPassIO.writeBoardingPassToFile(this, String.format("BoardingPass_%s.txt", this.boardingPassNumber));
+        BoardingPassIO.writeBoardingPassToFile(this, "BoardingPassesLog.txt");
     }
 
     private String generateTimeArrival() {              // TODO
         return "PlaceHolder Value";
     }
 
-    private float generateTicketPrice() {               // TODO
+    private float generateTicketPrice() {
         float price = BASE_TICKET_PRICE;
         if(age <= 12)
             price *= .5;
